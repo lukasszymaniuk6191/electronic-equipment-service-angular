@@ -37,11 +37,11 @@ export class Interceptor implements HttpInterceptor {
           console.log('err.status' + err.status);
           if (err.status === 401) {
             this.router.navigate(['/login']);
-          }if (err.status === 400) {
-            console.log(err);
+          }if (err.status === 404) {
+            this.router.navigate(['/error']);
           }
           else {
-            this.router.navigate(['/error']);
+            console.log(err);
           }
         }
       }
