@@ -1,0 +1,237 @@
+<app-header></app-header>
+
+<div class="container">
+  <section id="tabs" class="project-tab">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <nav>
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-equipment-data-tab" data-toggle="tab"
+                 href="#nav-equipment-data" role="tab" aria-controls="nav-equipment-data" aria-selected="true">Equipment
+                Data</a>
+              <a class="nav-item nav-link" id="nav-issue-tab" data-toggle="tab" href="#nav-issue" role="tab"
+                 aria-controls="nav-issue" aria-selected="false">Issue</a>
+              <a class="nav-item nav-link" id="nav-comment-tab" data-toggle="tab" href="#nav-comment" role="tab"
+                 aria-controls="nav-comment" aria-selected="false">Comments</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-equipment-data" role="tabpanel"
+                 aria-labelledby="nav-equipment-data-tab">
+
+
+              <div class="container py-3">
+                <div class="row">
+                  <div class="mx-auto col-md-10">
+                    <div class="card">
+
+                      <div class="card-body">
+                        <form [formGroup]="equipmentFormValid" novalidate
+                              (ngSubmit)="saveEquipment(equipmentFormValid)">
+
+                          <div class="form-group row">
+                            <label for="equipmentModel" class="col-sm-2 col-form-label"><b>Model: </b></label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="equipmentModel" formControlName="model">
+                              <small *ngIf="!equipmentFormValid.controls.model.valid" class="text-danger">
+                                Model is required.
+                              </small>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="equipmentMark" class="col-sm-2 col-form-label"><b>Mark: </b></label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="equipmentMark" formControlName="mark">
+                              <small *ngIf="!equipmentFormValid.controls.mark.valid" class="text-danger">
+                                Mark is required.
+                              </small>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="equipmentOwner" class="col-sm-2 col-form-label"><b>Owner: </b></label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="equipmentOwner" formControlName="owner">
+                              <small *ngIf="!equipmentFormValid.controls.owner.valid" class="text-danger">
+                                Owner is required.
+                              </small>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label for="equipmentCategory" class="col-sm-2 col-form-label"><b>Category: </b></label>
+                            <div class="col-sm-10">
+                              <select
+                                id="equipmentCategory" data-theme="bootstrap" placeholder="Select category ..."
+                                class="form-control" formControlName="category"
+                                (ngModelChange)="onChangeCategory($event)">
+                                <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
+                              </select>
+                              <small *ngIf="!equipmentFormValid.controls.category.valid" class="text-danger">
+                                Category is required.
+                              </small>
+                            </div>
+                          </div>
+
+                          <div formArrayName="parameters">
+                            <div *ngFor="let parameter of equipmentFormValid.controls.parameters.controls; let i=index"
+                                 class="panel panel-default">
+                              <div class="panel-heading">
+                                <span>Parameter {{i + 1}}</span>
+                                <span class="glyphicon glyphicon-remove pull-right"
+                                      *ngIf="equipmentFormValid.controls.parameters.controls.length > 1"
+                                      (click)="removeParameter(i)"></span>
+                              </div>
+                              <div class="panel-body" [formGroupName]="i">
+                                <div class="form-group row">
+                                  <div class="col-sm-2">
+                                    <input type="text" class="form-control" formControlName="name">
+                                    <small
+                                      [hidden]="equipmentFormValid.controls.parameters.controls[i].controls.name.valid"
+                                      class="text-danger">
+                                      Street is required
+                                    </small>
+                                  </div>
+                                  <div class="col-sm-8">
+                                    <input type="text" class="form-control" formControlName="description">
+                                    <small
+                                      [hidden]="equipmentFormValid.controls.parameters.controls[i].controls.description.valid"
+                                      class="text-danger">
+                                      Street is required
+                                    </small>
+                                  </div>
+                                  <div class="col-sm-2">
+                                    <button *ngIf="equipmentFormValid.controls.parameters.controls.length > 1"
+                                            (click)="removeParameter(i)" class="btn btn-primary pull-right">Remove
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="margin-20">
+                            <button (click)="addParameter()" class="btn btn-primary pull-right">Add Param</button>
+                          </div>
+
+                          <br>
+                          <br>
+
+                          <div class="margin-20">
+                            <button type="submit" class="btn btn-primary pull-right"
+                                    [disabled]="!equipmentFormValid.valid">Save Equipment
+                            </button>
+                          </div>
+                          <div class="clearfix"></div>
+
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="nav-issue" role="tabpanel" aria-labelledby="nav-issue-tab">
+
+              <div class="container py-3">
+                <div class="row">
+                  <div class="mx-auto col-md-10">
+                    <div class="card">
+                      <div class="card-body">
+
+                        <form [formGroup]="issueFormValid" novalidate (ngSubmit)="saveIssue(issueFormValid)">
+
+                          <div class="form-group row">
+                            <label for="issueAuthor" class="col-sm-2 col-form-label"><b>Model: </b></label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="issueAuthor" formControlName="auhor">
+                              <small *ngIf="!issueFormValid.controls.auhor.valid" class="text-danger">
+                                Author is required.
+                              </small>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="issueDescription" class="col-sm-2 col-form-label"><b>Description: </b></label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="issueDescription"
+                                     formControlName="description">
+                              <small *ngIf="!issueFormValid.controls.description.valid" class="text-danger">
+                                Description is required.
+                              </small>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="issueStatus" class="col-sm-2 col-form-label"><b>Status: </b></label>
+                            <div class="col-sm-10">
+                              <select
+                                id="issueStatus" data-theme="bootstrap" placeholder="Select status ..."
+                                class="form-control" formControlName="status"
+                                (ngModelChange)="onChangeStatus($event)">
+                                <option *ngFor="let c of statuses" [ngValue]="c">{{c.name}}</option>
+                              </select>
+                              <small *ngIf="!issueFormValid.controls.status.valid" class="text-danger">
+                                Status is required.
+                              </small>
+                            </div>
+                          </div>
+
+                          <div class="margin-20">
+                            <button type="submit" class="btn btn-primary pull-right" [disabled]="!issueFormValid.valid">
+                              Save Issue
+                            </button>
+                          </div>
+                          <div class="clearfix"></div>
+
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-comment" role="tabpanel" aria-labelledby="nav-comment-tab">
+
+              <br>
+              <div class="container py-3">
+                <div class="row">
+                  <div class="mx-auto col-md-10">
+
+                    <div *ngFor="let comment of equipment.comments">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p>
+                                <a class="float-left"><strong>{{comment.author}}</strong></a>
+                                <a class="text-secondary float-right">{{comment.date | dateTimeFormatPipe}}</a>
+                              </p>
+                              <div class="clearfix"></div>
+                              <p>{{comment.commentText}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <br>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="comment">Comment:</label>
+                      <textarea #textbox class="form-control" rows="5" [(ngModel)]="comment" id="comment"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary" (click)="saveComment(textbox.value)">Add Comment
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

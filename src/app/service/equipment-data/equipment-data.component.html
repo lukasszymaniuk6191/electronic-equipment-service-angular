@@ -1,0 +1,176 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+<app-header></app-header>
+
+<div class="container">
+  <section id="tabs" class="project-tab">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <nav>
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-equipment-data-tab" data-toggle="tab"
+                 href="#nav-equipment-data" role="tab" aria-controls="nav-equipment-data" aria-selected="true">Equipment
+                Data</a>
+              <a class="nav-item nav-link" id="nav-issue-tab" data-toggle="tab" href="#nav-issue" role="tab"
+                 aria-controls="nav-issue" aria-selected="false">Issue</a>
+              <a class="nav-item nav-link" id="nav-comment-tab" data-toggle="tab" href="#nav-comment" role="tab"
+                 aria-controls="nav-comment" aria-selected="false">Comments</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-equipment-data" role="tabpanel"
+                 aria-labelledby="nav-equipment-data-tab">
+              <div class="container py-3">
+                <div class="row">
+                  <div class="mx-auto col-md-10">
+                    <div class="card">
+
+                      <div class="card-body">
+                        <form class="form" role="form" autocomplete="off">
+
+                          <div class="form-group row">
+                            <label for="equipmentModel" class="col-sm-2 col-form-label"><b>Model: </b></label>
+                            <div class="col-sm-10">
+                              <div id="equipmentModel" class="form-control-plaintext">{{equipment.model}}</div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label for="equipmentMark" class="col-sm-2 col-form-label"><b>Mark: </b></label>
+                            <div class="col-sm-10">
+                              <div id="equipmentMark" class="form-control-plaintext">{{equipment.mark}}</div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label for="equipmentOwner" class="col-sm-2 col-form-label"><b>Owner: </b></label>
+                            <div class="col-sm-10">
+                              <div id="equipmentOwner" class="form-control-plaintext">{{equipment.owner}}</div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label for="equipmentCategoryName" class="col-sm-2 col-form-label"><b>Category: </b></label>
+                            <div class="col-sm-10">
+                              <div id="equipmentCategoryName"
+                                   class="form-control-plaintext">{{equipment.category.name}}</div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label for="equipmentIssueStatusName"
+                                   class="col-sm-2 col-form-label"><b>Status: </b></label>
+                            <div class="col-sm-10">
+                              <div id="equipmentIssueStatusName"
+                                   class="form-control-plaintext">{{equipment.issue.status.name}}</div>
+                            </div>
+                          </div>
+
+                          <div *ngFor="let parameter of equipment.parameters">
+                            <div class="form-group row">
+                              <label for="param" class="col-sm-2 col-form-label"><b>{{parameter.name}}: </b></label>
+                              <div class="col-sm-10">
+                                <div id="param" class="form-control-plaintext">{{parameter.description}}</div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="nav-issue" role="tabpanel" aria-labelledby="nav-issue-tab">
+
+              <div class="container py-3">
+                <div class="row">
+                  <div class="mx-auto col-md-10">
+                    <div class="card">
+                      <div class="card-body">
+
+                        <div class="form-group row">
+                          <label for="IssueAuhor" class="col-sm-2 col-form-label"><b>Author: </b></label>
+                          <div class="col-sm-10">
+                            <div id="IssueAuhor" class="form-control-plaintext">{{equipment.issue.auhor}}</div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="IssueDate" class="col-sm-2 col-form-label"><b>Date: </b></label>
+                          <div class="col-sm-10">
+                            <div id="IssueDate" class="form-control-plaintext">{{equipment.issue.date}}</div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="IssueDescription" class="col-sm-2 col-form-label"><b>Description: </b></label>
+                          <div class="col-sm-10">
+                            <div id="IssueDescription"
+                                 class="form-control-plaintext">{{equipment.issue.description}}</div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="IssueStatusName" class="col-sm-2 col-form-label"><b>Description: </b></label>
+                          <div class="col-sm-10">
+                            <div id="IssueStatusName"
+                                 class="form-control-plaintext">{{equipment.issue.status.name}}</div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-comment" role="tabpanel" aria-labelledby="nav-comment-tab">
+
+              <br>
+              <div class="container py-3">
+                <div class="row">
+                  <div class="mx-auto col-md-10">
+
+                    <div *ngFor="let comment of equipment.comments">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p>
+                                <a class="float-left"><strong>{{comment.author}}</strong></a>
+                                <a class="text-secondary float-right">{{comment.date | dateTimeFormatPipe}}</a>
+                              </p>
+                              <div class="clearfix"></div>
+                              <p>{{comment.commentText}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <br>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="comment">Comment:</label>
+                      <textarea #textbox class="form-control" rows="5" [(ngModel)]="comment" id="comment"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary" (click)="saveComment(textbox.value)">Add Comment
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<app-footer></app-footer>

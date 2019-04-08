@@ -1,0 +1,28 @@
+<app-header></app-header>
+
+<div class="container">
+  <div>
+    <table class="table table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th> Mark</th>
+        <th> Model</th>
+        <th> Owner</th>
+        <th> Category</th>
+        <th> Details</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr mdbTableCol *ngFor="let equipment of equipmentList">
+        <td>{{equipment.mark}}</td>
+        <td>{{equipment.model}}</td>
+        <td>{{equipment.owner}}</td>
+        <td>{{equipment.category.name}}</td>
+        <td><a [routerLink]=" ['/service/equipment-data', equipment.id] ">Details</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-footer></app-footer>
